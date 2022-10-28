@@ -20,9 +20,11 @@ class SellerController extends Controller
     {
         if(Auth::check()===true){
             $sales = new Sales;
-            ;
-        ;
-        return view('sales.dashboard',['sales',$sales->with('user')->get()]);
+            $listSales = $sales->with('user')->get();
+            
+        return view('sales.dashboard',['sales' => $listSales]);
+        }else{
+            return redirect('/seller/login');
         }
     }
     public function createproductPost(Request $request)
@@ -42,7 +44,11 @@ class SellerController extends Controller
 
     public function createProduct()
     {
+        if(Auth::check()===true){
         return view('sales.createproduct');
+        }else{
+            return redirect('/seller/login');
+        }
     }
 
 
@@ -50,7 +56,11 @@ class SellerController extends Controller
         {
     
             $credentials = ['email' => $request->email, 'password' => $request->password];
-            Auth::attempt($credentials);
+            if(Auth::attempt($credentials)){
+                return redirect('/seller/dashboard');
+            }else{
+                return redirect('/seller/login');
+            }
 
     }
 

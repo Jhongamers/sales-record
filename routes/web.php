@@ -20,6 +20,8 @@ Route::post('/seller/login', [SellerController::class,'login'])->name('seller-lo
 Route::get('/seller/dashboard', [SellerController::class,'dashboard'])->name('seller-dashboard');
 Route::get('/seller/dashboard/createproduct', [SellerController::class,'createProduct'])->name('seller-createproduct');
 Route::post('/seller/dashboard/create', [SellerController::class,'createproductPost'])->name('seller-createproductPost');
+ Route::put('/seller/dashboard/{id}/edit', [SellerController::class,'productEdit'])->where('id','[0-9]+')->name('seller-productEdit');
+
 Route::get('/seller/create', [SellerController::class,'create'])->name('seller-create');
 Route::post('/seller', [SellerController::class,'store'])->name('seller-store');
 
